@@ -43,6 +43,7 @@ kubectl apply -f staticapp.yaml
 
 ## Application
 The application is a simple web page that displays a message.
+http://135.234.235.109
 
 ## Author
-- [Bharath Suruneni].
+- [Bharath Suruneni]
