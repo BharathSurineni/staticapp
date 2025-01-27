@@ -1,0 +1,47 @@
+# Kubernetes Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: static-app
+  namespace: atc
+  labels:
+    app: static-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: static-app
+  template:
+    metadata:
+      labels:
+        app: static-app
+    spec:
+      containers:
+      - name: static-app
+        image: atcacrregistry.azurecr.io/static-app:latest
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "300m"
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+        ports:
+        - containerPort: 80
+
+---
+
+# Kubernetes Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: static-app-service
+  namespace: atc
+spec:
+  type: LoadBalancer
+  selector:
+    app: static-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
